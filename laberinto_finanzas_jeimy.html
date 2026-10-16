@@ -24,7 +24,7 @@ try{
     const user=auth.currentUser;
     if(!user)throw Error('Sin sesión');
     const data={uid:user.uid,apodo:result.apodo,puntos:result.puntos,tiempo:result.tiempo,aciertos:result.aciertos,ruta:result.ruta,fecha:serverTimestamp()};
-    await setDoc(doc(db,'resultados',user.uid),data);
+    await setDoc(doc(db,'resultados',user.uid+'_'+Date.now()),data);
     $('saveStatus').textContent='✅ ¡Resultado guardado en Firebase!';
     await window.loadRanking();
    }catch(e){$('saveStatus').textContent='⚠️ No se guardó. Revisá las reglas de Firestore y tu conexión.';console.error(e)}
